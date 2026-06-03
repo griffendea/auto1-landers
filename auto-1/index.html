@@ -45,22 +45,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 /* ── QUIZ SHELL ── */
 .quiz-section { padding: 0 16px 48px; margin-top: -28px; position: relative; z-index: 10; }
 .quiz-wrap { max-width: 540px; margin: 0 auto; }
-  @media (min-width: 560px) {
-    .quiz-wrap.result-wide { max-width: 800px; }
-    .below-trust.result-wide { max-width: 800px; }
-    .quiz-wrap.result-wide .result-inner { padding: 26px 28px 22px; }
-    .quiz-wrap.result-wide .cov-card { padding: 22px 20px 18px; text-align: center; }
-    .quiz-wrap.result-wide .cov-card.popular { padding: 22px 20px 18px; text-align: center; }
-    .quiz-wrap.result-wide .cov-card-inner { flex-direction: column; align-items: center; }
-    .quiz-wrap.result-wide .cov-left { min-width: unset; width: 100%; text-align: center; }
-    .quiz-wrap.result-wide .cov-right { width: 100%; align-items: center; }
-    .quiz-wrap.result-wide .cov-features { width: 100%; }
-    .quiz-wrap.result-wide .cov-features li { justify-content: center; }
-    .quiz-wrap.result-wide .cov-title { font-size: 15px; }
-    .quiz-wrap.result-wide .cov-price { font-size: 38px; }
-    .quiz-wrap.result-wide .cov-features li { font-size: 13px; }
-    .quiz-wrap.result-wide .cov-btn { font-size: 15px; padding: 13px 10px; }
-  }
 .quiz-card { background: var(--white); border-radius: 18px; box-shadow: 0 8px 40px rgba(13,31,60,0.14), 0 2px 8px rgba(13,31,60,0.05); overflow: hidden; }
 .quiz-inner { padding: 22px 18px 20px; }
 
@@ -77,12 +61,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .loader-step.active .step-icon { border-color: var(--orange); }
 .loader-step.active .step-label { color: var(--text); font-weight: 500; }
 .loader-step.done .step-label { color: var(--green-dark); font-weight: 500; }
-
-/* spinner ring */
 .spin-ring { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--orange); animation: spin 0.7s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* big progress bar for loader */
 .loader-bar-wrap { width: 100%; max-width: 320px; }
 .loader-bar-track { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
 .loader-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange), #F07D4A); border-radius: 10px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
@@ -126,10 +106,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .result-header h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--navy); line-height: 1.1; margin-bottom: 5px; }
 .result-header p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
+/* ── COVERAGE CARDS — MOBILE FIRST ── */
 .cards-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+
+/* mobile: horizontal split (price left, features right) */
 .cov-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 16px 14px; background: var(--white); position: relative; }
 .cov-card.popular { border: 2px solid var(--green); background: var(--green-light); }
-.cov-card-inner { display: flex; gap: 14px; align-items: flex-start; }
+.cov-card-inner { display: flex; flex-direction: row; gap: 14px; align-items: flex-start; }
 .cov-left { flex-shrink: 0; min-width: 100px; }
 .cov-right { flex: 1; display: flex; flex-direction: column; gap: 8px; }
 .pop-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 14px; border-radius: 0 0 8px 8px; white-space: nowrap; }
@@ -158,23 +141,34 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 footer { border-top: 1px solid var(--border); text-align: center; padding: 20px 16px; font-size: 11px; color: var(--muted); line-height: 1.8; }
 footer a { color: var(--muted); }
 
+/* ── DESKTOP (560px+) ── */
 @media (min-width: 560px) {
-  .quiz-inner { padding: 26px 26px 22px; }
-  .result-inner { padding: 22px 24px 20px; }
-  .q-text { font-size: 27px; }
   .hero { padding: 52px 20px 60px; }
-  .cards-grid { flex-direction: row; align-items: stretch; }
-  .cov-card { flex: 1; display: flex; flex-direction: column; }
-  .cov-card-inner { flex-direction: column; gap: 0; flex: 1; display: flex; flex-direction: column; }
-  .cov-right { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .cov-btn { margin-top: auto; }
-  .cov-title { margin-top: 8px; font-size: 13px; }
-  .cov-left { min-width: unset; }
-  .cov-right { gap: 0; }
-  .cov-btn { margin-top: 10px; margin-bottom: 8px; padding: 9px 8px; font-size: 13px; }
-  .cov-price { font-size: 30px; }
+  .quiz-inner { padding: 26px 26px 22px; }
+  .q-text { font-size: 27px; }
   .below-trust { flex-direction: row; }
   .bt-card { flex-direction: column; text-align: center; }
+
+  /* widen result screen only */
+  .quiz-wrap.result-wide { max-width: 800px; }
+  .below-trust.result-wide { max-width: 800px; }
+  .quiz-wrap.result-wide .result-inner { padding: 26px 28px 22px; }
+
+  /* cards: 3-col, equal width, equal height */
+  .quiz-wrap.result-wide .cards-grid { flex-direction: row; align-items: stretch; }
+  .quiz-wrap.result-wide .cov-card { flex: 1; display: flex; flex-direction: column; padding: 24px 20px 20px; }
+  .quiz-wrap.result-wide .cov-card.popular { padding: 24px 20px 20px; }
+
+  /* stack & center everything inside each card */
+  .quiz-wrap.result-wide .cov-card-inner { flex-direction: column; align-items: center; gap: 0; width: 100%; }
+  .quiz-wrap.result-wide .cov-left { min-width: unset; width: 100%; text-align: center; }
+  .quiz-wrap.result-wide .cov-title { font-size: 15px; margin-top: 8px; text-align: center; }
+  .quiz-wrap.result-wide .cov-as-low { text-align: center; }
+  .quiz-wrap.result-wide .cov-price { font-size: 40px; text-align: center; }
+  .quiz-wrap.result-wide .cov-right { width: 100%; display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .quiz-wrap.result-wide .cov-features { width: 100%; margin-top: 10px; }
+  .quiz-wrap.result-wide .cov-features li { justify-content: center; font-size: 13px; }
+  .quiz-wrap.result-wide .cov-btn { margin-top: auto; padding-top: 12px; padding-bottom: 12px; font-size: 15px; width: 100%; }
 }
 </style>
 </head>
@@ -230,10 +224,10 @@ const questions = [
   {
     id: 'age', text: 'What is your age range?', savings: '+ Age discount applied',
     options: [
-      { value: 'under35', label: 'Under 35',   icon: '🧑',   qualifies: true },
-      { value: '35to50',  label: '35 – 50',    icon: '👤',   qualifies: true },
-      { value: '51to64',  label: '51 – 64',    icon: '🧑‍💼', qualifies: true },
-      { value: '65plus',  label: '65 or older',icon: '👴',   qualifies: false },
+      { value: 'under35', label: 'Under 35',    icon: '🧑',   qualifies: true },
+      { value: '35to50',  label: '35 – 50',     icon: '👤',   qualifies: true },
+      { value: '51to64',  label: '51 – 64',     icon: '🧑‍💼', qualifies: true },
+      { value: '65plus',  label: '65 or older', icon: '👴',   qualifies: false },
     ]
   },
   {
@@ -253,7 +247,7 @@ const questions = [
   {
     id: 'state', text: 'Do you live in California or New York?', savings: '+ Location verified',
     options: [
-      { value: 'yes', label: 'Yes — CA or NY', icon: '📍', qualifies: false },
+      { value: 'yes', label: 'Yes — CA or NY',   icon: '📍', qualifies: false },
       { value: 'no',  label: 'No — other state', icon: '✅', qualifies: true },
     ]
   }
@@ -273,32 +267,26 @@ const shld = `<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6
 const usrs = `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 
 function isQualified() {
-  const ageOpt = questions.find(q=>q.id==='age').options.find(o=>o.value===answers['age']);
+  const ageOpt   = questions.find(q=>q.id==='age').options.find(o=>o.value===answers['age']);
   const stateOpt = questions.find(q=>q.id==='state').options.find(o=>o.value===answers['state']);
   return ageOpt?.qualifies && answers['homeowner']==='yes' && answers['insured']==='yes' && stateOpt?.qualifies;
 }
 
 function getPrices() {
-  // Base ranges per tier (never below $39.99)
   const base = { liability: [39.99, 42.00], collision: [53.00, 59.00], full: [60.00, 69.00] };
-
-  // Nudge factors based on answers (purely cosmetic — reinforces "calculated for you" feel)
   let nudge = 0;
-  if (answers['age'] === 'under35')  nudge += 1.20;
-  if (answers['age'] === '51to64')   nudge -= 0.80;
+  if (answers['age'] === 'under35')   nudge += 1.20;
+  if (answers['age'] === '51to64')    nudge -= 0.80;
   if (answers['homeowner'] === 'yes') nudge -= 1.10;
   if (answers['insured'] === 'yes')   nudge -= 0.60;
-
   function rand(min, max) {
-    const raw = min + Math.random() * (max - min) + nudge;
+    const raw     = min + Math.random() * (max - min) + nudge;
     const clamped = Math.max(39.99, raw);
-    // Generate a non-round cents value: pick from realistic cent endings
-    const cents = [13,17,22,27,33,38,43,47,52,57,63,68,73,77,82,87,93,97];
+    const cents   = [13,17,22,27,33,38,43,47,52,57,63,68,73,77,82,87,93,97];
     const dollars = Math.floor(clamped);
-    const c = cents[Math.floor(Math.random() * cents.length)];
+    const c       = cents[Math.floor(Math.random() * cents.length)];
     return (dollars + c / 100).toFixed(2);
   }
-
   return {
     liability: rand(...base.liability),
     collision: rand(...base.collision),
@@ -332,25 +320,13 @@ function renderQ() {
     const btn = document.createElement('button');
     btn.className = 'opt-btn';
     btn.innerHTML = `<div class="opt-left"><span class="opt-icon">${opt.icon}</span><span>${opt.label}</span></div>${arr}`;
-    btn.addEventListener('click', () => {
-      answers[q.id] = opt.value;
-      pills.push(q.savings);
-      currentQ++;
-      render();
-    });
+    btn.addEventListener('click', () => { answers[q.id]=opt.value; pills.push(q.savings); currentQ++; render(); });
     document.getElementById('opts').appendChild(btn);
   });
 }
 
-/* ── LOADER ── */
 function showLoader() {
-  const loaderSteps = [
-    'Checking your answers',
-    'Searching available rates',
-    'Matching you to carriers',
-    'Preparing your results',
-  ];
-
+  const loaderSteps = ['Checking your answers','Searching available rates','Matching you to carriers','Preparing your results'];
   document.getElementById('quiz-body').innerHTML = `
     <div class="loader-wrap">
       <div class="loader-title">Finding Your Rates…</div>
@@ -370,31 +346,24 @@ function showLoader() {
       <div class="loader-sub" id="loader-sub">Hang tight — this takes just a moment</div>
     </div>
     <div class="trust-bar">
-      ${lock ? `<span class="trust-item">${lock}Secure</span>` : ''}
+      <span class="trust-item">${lock}Secure</span>
       <span class="trust-item">${shld}No spam</span>
       <span class="trust-item">${usrs}50,000+ today</span>
     </div>`;
-
-  // Animate steps
   const totalMs = 2600;
   const stepMs  = totalMs / loaderSteps.length;
-
-  loaderSteps.forEach((_, i) => {
-    // mark active
+  loaderSteps.forEach((_,i) => {
     setTimeout(() => {
       const el = document.getElementById(`lstep-${i}`);
       const icon = document.getElementById(`lstep-icon-${i}`);
       if (!el) return;
       el.classList.add('active');
-      // replace step-icon content with spinner
       icon.innerHTML = '';
       icon.style.border = 'none';
       const ring = document.createElement('div');
       ring.className = 'spin-ring';
       icon.appendChild(ring);
     }, i * stepMs);
-
-    // mark done
     setTimeout(() => {
       const el = document.getElementById(`lstep-${i}`);
       const icon = document.getElementById(`lstep-icon-${i}`);
@@ -405,12 +374,9 @@ function showLoader() {
       icon.style.border = '';
     }, (i + 0.85) * stepMs);
   });
-
-  // Progress bar
-  const barEl  = document.getElementById('lbar');
-  const pctEl  = document.getElementById('lpct');
-  const ticks  = 40;
-  const tickMs = totalMs / ticks;
+  const barEl = document.getElementById('lbar');
+  const pctEl = document.getElementById('lpct');
+  const ticks = 40, tickMs = totalMs / ticks;
   let tick = 0;
   const barTimer = setInterval(() => {
     tick++;
@@ -419,23 +385,14 @@ function showLoader() {
     if (pctEl) pctEl.textContent = pct + '%';
     if (tick >= ticks) clearInterval(barTimer);
   }, tickMs);
-
-  // Final sub-label
-  setTimeout(() => {
-    const sub = document.getElementById('loader-sub');
-    if (sub) sub.textContent = 'Almost there…';
-  }, totalMs * 0.7);
-
-  // Go to results
-  setTimeout(() => {
-    renderResult();
-  }, totalMs + 200);
+  setTimeout(() => { const sub = document.getElementById('loader-sub'); if (sub) sub.textContent = 'Almost there…'; }, totalMs * 0.7);
+  setTimeout(() => renderResult(), totalMs + 200);
 }
 
 function renderResult() {
   const url = isQualified() ? QUALIFIED_URL : UNQUALIFIED_URL;
-  const p = getPrices();
-  const pillsHTML = pills.map(p=>`<span class="s-pill">${chk}${p}</span>`).join('');
+  const p   = getPrices();
+  const pillsHTML = pills.map(pill=>`<span class="s-pill">${chk}${pill}</span>`).join('');
   document.getElementById('quiz-body').innerHTML = `
     <div class="result-qual-bar">${chk}<span>You pre-qualified — your rates are ready below</span></div>
     <div class="result-inner">
@@ -445,6 +402,7 @@ function renderResult() {
       </div>
       <div class="savings-bar" style="justify-content:center;margin-bottom:16px;">${pillsHTML}</div>
       <div class="cards-grid">
+
         <div class="cov-card">
           <div class="cov-card-inner">
             <div class="cov-left">
@@ -462,6 +420,7 @@ function renderResult() {
             </div>
           </div>
         </div>
+
         <div class="cov-card popular">
           <div class="pop-badge">Most Popular</div>
           <div class="cov-card-inner" style="margin-top:8px;">
@@ -480,6 +439,7 @@ function renderResult() {
             </div>
           </div>
         </div>
+
         <div class="cov-card">
           <div class="cov-card-inner">
             <div class="cov-left">
@@ -497,6 +457,7 @@ function renderResult() {
             </div>
           </div>
         </div>
+
       </div>
       <div class="result-fine">Free quotes · No obligation · Results expire in 10 minutes</div>
     </div>
