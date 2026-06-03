@@ -112,8 +112,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 /* mobile: horizontal split (price left, features right) */
 .cov-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 16px 14px; background: var(--white); position: relative; }
 .cov-card.popular { border: 2px solid var(--green); background: var(--green-light); }
-@media (max-width: 559px) { .cov-card-inner { display: flex; flex-direction: row; gap: 14px; align-items: flex-start; } }
-@media (max-width: 559px) { .cov-left { flex-shrink: 0; min-width: 100px; } }
+.cov-card-inner { display: flex; flex-direction: row; gap: 14px; align-items: flex-start; }
+.cov-left { flex-shrink: 0; min-width: 100px; }
 .cov-right { flex: 1; display: flex; flex-direction: column; gap: 8px; }
 .pop-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 14px; border-radius: 0 0 8px 8px; white-space: nowrap; }
 .cov-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 3px; margin-top: 6px; line-height: 1.2; }
@@ -401,61 +401,49 @@ function renderResult() {
         <p>You qualify for all three tiers. Pick your plan and fetch your personalized quotes.</p>
       </div>
       <div class="savings-bar" style="justify-content:center;margin-bottom:16px;">${pillsHTML}</div>
-      <div class="cards-grid">
+      <div class="cards-grid" style="display:flex;flex-direction:column;gap:12px;margin-bottom:14px;" id="cards-grid">
 
-        <div class="cov-card">
-          <div class="cov-card-inner">
-            <div class="cov-left">
-              <div class="cov-title">Liability Only</div>
-              <div class="cov-as-low">As low as</div>
-              <div class="cov-price"><sup>$</sup>${p.liability.split('.')[0]}<span class="mo">.${p.liability.split('.')[1]}/mo</span></div>
-            </div>
-            <div class="cov-right">
-              <ul class="cov-features">
-                <li>${chk}State minimum coverage</li>
-                <li>${chk}Bodily injury liability</li>
-                <li>${chk}Property damage</li>
-              </ul>
-              <a href="${url}?plan=liability" class="cov-btn default">Fetch My Quotes ›</a>
-            </div>
+        <div class="cov-card" style="text-align:center;display:flex;flex-direction:column;">
+          <div style="text-align:center;">
+            <div class="cov-title" style="text-align:center;">Liability Only</div>
+            <div class="cov-as-low" style="text-align:center;">As low as</div>
+            <div class="cov-price" style="text-align:center;font-size:40px;"><sup>$</sup>${p.liability.split('.')[0]}<span class="mo">.${p.liability.split('.')[1]}/mo</span></div>
           </div>
+          <ul class="cov-features" style="margin-top:10px;margin-bottom:10px;">
+            <li style="justify-content:center;">${chk}State minimum coverage</li>
+            <li style="justify-content:center;">${chk}Bodily injury liability</li>
+            <li style="justify-content:center;">${chk}Property damage</li>
+          </ul>
+          <a href="${url}?plan=liability" class="cov-btn default" style="margin-top:auto;">Fetch My Quotes ›</a>
         </div>
 
-        <div class="cov-card popular">
+        <div class="cov-card popular" style="text-align:center;display:flex;flex-direction:column;">
           <div class="pop-badge">Most Popular</div>
-          <div class="cov-card-inner" style="margin-top:8px;">
-            <div class="cov-left">
-              <div class="cov-title">Liability + Collision</div>
-              <div class="cov-as-low">As low as</div>
-              <div class="cov-price"><sup>$</sup>${p.collision.split('.')[0]}<span class="mo">.${p.collision.split('.')[1]}/mo</span></div>
-            </div>
-            <div class="cov-right">
-              <ul class="cov-features">
-                <li>${chk}Everything in Basic</li>
-                <li>${chk}Collision coverage</li>
-                <li>${chk}Rental reimbursement</li>
-              </ul>
-              <a href="${url}?plan=collision" class="cov-btn highlight">Fetch My Quotes ›</a>
-            </div>
+          <div style="text-align:center;margin-top:8px;">
+            <div class="cov-title" style="text-align:center;">Liability + Collision</div>
+            <div class="cov-as-low" style="text-align:center;">As low as</div>
+            <div class="cov-price" style="text-align:center;font-size:40px;"><sup>$</sup>${p.collision.split('.')[0]}<span class="mo">.${p.collision.split('.')[1]}/mo</span></div>
           </div>
+          <ul class="cov-features" style="margin-top:10px;margin-bottom:10px;">
+            <li style="justify-content:center;">${chk}Everything in Basic</li>
+            <li style="justify-content:center;">${chk}Collision coverage</li>
+            <li style="justify-content:center;">${chk}Rental reimbursement</li>
+          </ul>
+          <a href="${url}?plan=collision" class="cov-btn highlight" style="margin-top:auto;">Fetch My Quotes ›</a>
         </div>
 
-        <div class="cov-card">
-          <div class="cov-card-inner">
-            <div class="cov-left">
-              <div class="cov-title">Full Coverage</div>
-              <div class="cov-as-low">As low as</div>
-              <div class="cov-price"><sup>$</sup>${p.full.split('.')[0]}<span class="mo">.${p.full.split('.')[1]}/mo</span></div>
-            </div>
-            <div class="cov-right">
-              <ul class="cov-features">
-                <li>${chk}Everything in Enhanced</li>
-                <li>${chk}Comprehensive coverage</li>
-                <li>${chk}Roadside assistance</li>
-              </ul>
-              <a href="${url}?plan=full" class="cov-btn default">Fetch My Quotes ›</a>
-            </div>
+        <div class="cov-card" style="text-align:center;display:flex;flex-direction:column;">
+          <div style="text-align:center;">
+            <div class="cov-title" style="text-align:center;">Full Coverage</div>
+            <div class="cov-as-low" style="text-align:center;">As low as</div>
+            <div class="cov-price" style="text-align:center;font-size:40px;"><sup>$</sup>${p.full.split('.')[0]}<span class="mo">.${p.full.split('.')[1]}/mo</span></div>
           </div>
+          <ul class="cov-features" style="margin-top:10px;margin-bottom:10px;">
+            <li style="justify-content:center;">${chk}Everything in Enhanced</li>
+            <li style="justify-content:center;">${chk}Comprehensive coverage</li>
+            <li style="justify-content:center;">${chk}Roadside assistance</li>
+          </ul>
+          <a href="${url}?plan=full" class="cov-btn default" style="margin-top:auto;">Fetch My Quotes ›</a>
         </div>
 
       </div>
@@ -467,6 +455,12 @@ function renderResult() {
       <span class="trust-item">${chk}No credit check</span>
     </div>`;
   document.getElementById('quiz-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Force desktop card layout via JS after render
+  const grid = document.getElementById('cards-grid');
+  if (grid && window.innerWidth >= 480) {
+    grid.style.flexDirection = 'row';
+    grid.style.alignItems = 'stretch';
+  }
   document.querySelector('.quiz-wrap').classList.add('result-wide');
   document.querySelector('.below-trust').classList.add('result-wide');
 }
