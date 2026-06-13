@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clearroad Insurance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #0b1f3a;
+  --navy-mid:  #1a3557;
+  --navy-lt:   #2a4a6e;
+  --amber:     #f59e0b;
+  --amber-drk: #d97706;
+  --amber-lt:  #fffbeb;
+  --off-white: #f8f7f4;
+  --white:     #ffffff;
+  --ink-mid:   #4a5a6e;
+  --ink-muted: #8a9aaa;
+  --border:    #e2e8f0;
+  --green-trust: #16a34a;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--off-white);
+  color: var(--navy);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══ NAV ══ */
+.nav-wrap {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+  padding: 22px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px; font-weight: 800;
+  color: white; letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--amber); }
+.nav-links { display: flex; align-items: center; gap: 36px; }
+.nav-links a {
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.15s;
+}
+.nav-links a:hover { color: white; }
+.nav-btn {
+  font-family: 'Inter', sans-serif;
+  background: var(--amber); color: var(--navy);
+  border: none; border-radius: var(--r-sm);
+  padding: 10px 22px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: background 0.15s;
+}
+.nav-btn:hover { background: var(--amber-drk); }
+
+/* ══ DESKTOP HERO ══ */
+.hero-desktop {
+  position: relative; min-height: 640px;
+  background: linear-gradient(145deg, var(--navy) 0%, var(--navy-mid) 50%, #1e4060 100%);
+  overflow: hidden; display: flex; align-items: center;
+}
+
+/* Decorative shapes */
+.hero-shape {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: rgba(255,255,255,0.04);
+}
+.hs1 { width: 500px; height: 500px; top: -180px; right: -100px; }
+.hs2 { width: 260px; height: 260px; bottom: -80px; left: 8%; }
+.hs3 { width: 120px; height: 120px; top: 20%; left: 42%; }
+
+/* Sky/ground illustration */
+.hero-ground {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 32%;
+  background: linear-gradient(180deg, #1a6b3a 0%, #0f4a28 100%);
+  clip-path: ellipse(130% 90% at 50% 100%);
+  pointer-events: none;
+}
+.hero-road {
+  position: absolute; bottom: 0; left: 33%; right: 33%; height: 26%;
+  background: linear-gradient(180deg, #2a3f52 0%, #1a2e40 100%);
+  clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+}
+.hero-road-line {
+  position: absolute; bottom: 0; left: 49%; right: 49%; height: 16%;
+  background: repeating-linear-gradient(180deg,
+    rgba(245,158,11,0.5) 0px, rgba(245,158,11,0.5) 12px,
+    transparent 12px, transparent 24px);
+  pointer-events: none;
+}
+
+/* Ambient glow */
+.hero-glow {
+  position: absolute; width: 600px; height: 300px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.08) 0%, transparent 70%);
+  top: 20%; left: -10%;
+}
+
+.hero-content-desktop {
+  position: relative; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 120px 52px 90px; width: 100%; gap: 52px;
+}
+
+.hero-left { flex: 1; max-width: 560px; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 99px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--amber);
+  margin-bottom: 20px;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+
+.hero-h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 58px; font-weight: 900; line-height: 1.0;
+  color: white; letter-spacing: -3px; margin-bottom: 18px;
+}
+.hero-h1 .accent { color: var(--amber); }
+
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.62);
+  line-height: 1.65; max-width: 420px; margin-bottom: 28px;
+}
+
+.hero-trust {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; color: rgba(255,255,255,0.55);
+}
+.trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green-trust); flex-shrink: 0; }
+
+/* Desktop quote card */
+.quote-card {
+  background: white; border-radius: var(--r-xl);
+  padding: 32px; width: 370px; flex-shrink: 0;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.2);
+}
+.qc-label {
+  font-size: 14px; font-weight: 600; color: var(--navy);
+  text-align: center; margin-bottom: 18px; line-height: 1.4;
+}
+
+/* ══ SHARED: age buttons ══ */
+.age-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; margin-bottom: 18px;
+}
+.age-btn {
+  font-family: 'Inter', sans-serif;
+  background: var(--off-white); border: 1.5px solid var(--border);
+  border-radius: var(--r-sm); padding: 13px 8px;
+  font-size: 15px; font-weight: 600; color: var(--navy);
+  cursor: pointer; transition: all 0.15s; text-align: center;
+}
+.age-btn:hover  { border-color: var(--amber); color: var(--amber-drk); background: var(--amber-lt); }
+.age-btn.active { border-color: var(--navy); background: var(--navy); color: white; }
+
+/* ══ SHARED: CTA button ══ */
+.cta-btn {
+  font-family: 'Inter', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; background: var(--amber); color: var(--navy);
+  border: none; border-radius: var(--r-md);
+  padding: 18px; font-size: 16px; font-weight: 800;
+  cursor: pointer; transition: all 0.15s;
+  letter-spacing: -0.2px;
+  box-shadow: 0 4px 20px rgba(245,158,11,0.35);
+}
+.cta-btn:hover { background: var(--amber-drk); box-shadow: 0 6px 28px rgba(245,158,11,0.45); transform: translateY(-1px); }
+.cta-trust {
+  text-align: center; margin-top: 10px;
+  font-size: 12px; color: var(--ink-muted);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.cta-trust::before { content: '🔒'; font-size: 11px; }
+.cta-arrow {
+  width: 24px; height: 2px; background: var(--navy);
+  position: relative; display: inline-block; flex-shrink: 0; opacity: 0.6;
+}
+.cta-arrow::after {
+  content:''; position:absolute; right:-1px; top:-4px;
+  border: solid var(--navy); border-width:0 2px 2px 0;
+  padding:4px; transform:rotate(-45deg); opacity:0.6;
+}
+
+/* ══ MOBILE HERO ══ */
+.hero-mobile { display: none; }
+
+.mh-sky {
+  position: relative; height: 400px;
+  background: linear-gradient(185deg, var(--navy) 0%, var(--navy-mid) 45%, #1e4a60 80%, #1a5040 100%);
+  overflow: visible; z-index: 1;
+}
+
+/* Clouds — lighter on dark sky */
+.mh-cloud { position:absolute; background:rgba(255,255,255,0.12); border-radius:50px; }
+.mh-cloud::before, .mh-cloud::after { content:''; position:absolute; background:rgba(255,255,255,0.12); border-radius:50%; }
+.mc1 { width:100px; height:28px; top:9%; left:2%; }
+.mc1::before { width:44px; height:44px; top:-22px; left:12px; }
+.mc1::after  { width:34px; height:34px; top:-16px; left:48px; }
+.mc2 { width:72px; height:20px; top:6%; left:30%; }
+.mc2::before { width:30px; height:30px; top:-16px; left:8px; }
+.mc2::after  { width:24px; height:24px; top:-10px; left:32px; }
+.mc3 { width:88px; height:24px; top:13%; right:3%; }
+.mc3::before { width:38px; height:38px; top:-20px; left:10px; }
+.mc3::after  { width:30px; height:30px; top:-14px; left:42px; }
+.mc4 { width:50px; height:14px; top:24%; right:26%; }
+.mc4::before { width:22px; height:22px; top:-12px; left:6px; }
+.mc4::after  { width:16px; height:16px; top:-8px; left:24px; }
+
+.mh-bg-clip { position:absolute; inset:0; overflow:hidden; z-index:0; }
+.mh-ground {
+  position:absolute; bottom:0; left:0; right:0; height:46%;
+  background: linear-gradient(180deg,#1a6b3a 0%,#0f4a28 100%);
+  clip-path: ellipse(130% 88% at 50% 100%);
+}
+.mh-road {
+  position:absolute; bottom:0; left:26%; right:26%; height:32%;
+  background: linear-gradient(180deg,#2a3f52 0%,#1a2e40 100%);
+  clip-path: polygon(20% 0%,80% 0%,100% 100%,0% 100%);
+}
+.mh-road-stripe {
+  position:absolute; bottom:0; left:48.5%; right:48.5%; height:22%;
+  background: repeating-linear-gradient(180deg,
+    rgba(245,158,11,0.55) 0px, rgba(245,158,11,0.55) 12px,
+    transparent 12px, transparent 24px);
+}
+
+.mh-brand {
+  position:absolute; top:54px; left:18px; z-index:5;
+  font-family:'Inter', sans-serif; font-size:20px; font-weight:800; color:white;
+}
+.mh-brand span { color:var(--amber); }
+
+.mh-text {
+  position:absolute; top:100px; left:0; right:0;
+  text-align:center; z-index:5; padding:0 20px;
+}
+.mh-eyebrow {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3);
+  border-radius:99px; padding:4px 12px;
+  font-size:10px; font-weight:600; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--amber); margin-bottom:10px;
+}
+.mh-h1 {
+  font-family:'Inter', sans-serif;
+  font-size:30px; font-weight:900; line-height:1.08;
+  color:white; letter-spacing:-1.5px;
+}
+.mh-h1 .accent { color:var(--amber); }
+.mh-sub { font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px; }
+
+.mh-bubble {
+  position:absolute; top:54px; right:16px; z-index:6;
+  background:var(--amber); border-radius:60px;
+  padding:9px 18px; text-align:center;
+  box-shadow:0 6px 24px rgba(245,158,11,0.45);
+}
+.mh-bubble-label { font-size:9px; color:var(--navy); opacity:0.7; letter-spacing:0.04em; text-transform:uppercase; font-weight:600; }
+.mh-bubble-price { font-family:'Inter', sans-serif; font-size:24px; font-weight:800; color:var(--navy); line-height:1; }
+.mh-bubble-per   { font-size:10px; color:var(--navy); opacity:0.7; font-weight:600; }
+
+/* Mobile plan cards */
+.mh-plans {
+  position:absolute; bottom:-62px; left:0; right:0; z-index:6;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:6px; padding:0 12px;
+}
+.mh-plan {
+  background:white; border-radius:14px; border:2px solid transparent;
+  padding:16px 6px 18px; text-align:center; cursor:pointer;
+  transition:border-color 0.15s, box-shadow 0.15s; position:relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12);
+}
+.mh-plan:hover  { border-color:var(--amber); }
+.mh-plan.active { border-color:var(--amber); box-shadow:0 8px 32px rgba(245,158,11,0.25), 0 2px 8px rgba(245,158,11,0.15); }
+.mh-popular {
+  position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+  background:var(--amber); color:var(--navy);
+  font-size:8px; font-weight:800; padding:3px 10px;
+  border-radius:20px; white-space:nowrap; letter-spacing:0.05em; text-transform:uppercase;
+}
+.mh-pname  { font-size:12px; font-weight:700; color:var(--navy); margin-bottom:5px; line-height:1.35; }
+.mh-pfrom  { font-size:9.5px; color:var(--ink-muted); margin-bottom:2px; font-weight:500; }
+.mh-pprice { font-family:'Inter', sans-serif; font-size:22px; font-weight:800; color:var(--navy); line-height:1; }
+.mh-pmo    { font-size:10px; color:var(--ink-muted); margin-top:1px; font-weight:500; }
+
+/* Mobile lower */
+.mh-lower {
+  background:var(--off-white); padding:92px 16px 28px;
+  position:relative; z-index:0;
+}
+.mh-age-label {
+  font-size:13px; color:var(--ink-mid); text-align:center;
+  margin-bottom:13px; font-weight:500;
+}
+.mh-age-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:9px; margin-bottom:14px;
+}
+.mh-age-btn {
+  font-family:'Inter',sans-serif;
+  background:white; border:1.5px solid var(--border);
+  border-radius:var(--r-sm); padding:13px 8px;
+  font-size:15px; font-weight:600; color:var(--navy);
+  cursor:pointer; transition:all 0.15s; text-align:center;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.mh-age-btn:hover  { border-color:var(--amber); color:var(--amber-drk); background:var(--amber-lt); }
+.mh-age-btn.active { border-color:var(--navy); background:var(--navy); color:white; }
+
+/* ══ STATS BAR ══ */
+.stats-bar {
+  background: var(--navy-mid);
+  padding:28px 52px;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.stat { text-align:center; }
+.stat-sub   { font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:2px; letter-spacing:0.05em; text-transform:uppercase; }
+.stat-value { font-family:'Inter', sans-serif; font-size:28px; font-weight:800; color:white; line-height:1.1; display:flex; align-items:center; justify-content:center; gap:4px; }
+.stat-star  { color:var(--amber); }
+.stat-label { font-size:11.5px; color:rgba(255,255,255,0.45); margin-top:4px; }
+
+/* ══ COVERAGE ══ */
+.coverage-section { background:var(--off-white); padding:72px 52px; }
+.section-eyebrow {
+  font-size:11px; font-weight:700; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--amber-drk);
+  text-align:center; margin-bottom:8px;
+}
+.section-title {
+  font-family:'Inter', sans-serif;
+  font-size:36px; font-weight:900; color:var(--navy);
+  text-align:center; margin-bottom:40px; letter-spacing:-1.5px; line-height:1.05;
+}
+.coverage-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:20px; max-width:960px; margin:0 auto;
+}
+.coverage-card {
+  background:white; border-radius:var(--r-xl);
+  border:2px solid var(--border);
+  padding:32px 26px; cursor:pointer;
+  transition:all 0.2s; position:relative;
+  box-shadow:0 2px 12px rgba(0,0,0,0.05);
+}
+.coverage-card:hover { border-color:var(--amber); box-shadow:0 12px 40px rgba(245,158,11,0.12); transform:translateY(-3px); }
+.coverage-card.active { border-color:var(--amber); box-shadow:0 12px 40px rgba(245,158,11,0.15); }
+.pop-badge {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  background:var(--amber); color:var(--navy);
+  font-size:10px; font-weight:800; letter-spacing:0.08em;
+  padding:5px 16px; border-radius:99px; white-space:nowrap; text-transform:uppercase;
+}
+.card-name  { font-size:16px; font-weight:700; color:var(--navy); text-align:center; margin-bottom:4px; }
+.card-from  { font-size:11px; color:var(--ink-muted); text-align:center; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.06em; font-weight:600; }
+.card-price { font-family:'Inter', sans-serif; font-size:46px; font-weight:800; color:var(--navy); text-align:center; line-height:1; margin-bottom:2px; letter-spacing:-2px; }
+.card-per   { font-size:13px; color:var(--ink-muted); text-align:center; margin-bottom:22px; font-weight:500; }
+.card-divider { height:1px; background:var(--border); margin-bottom:18px; }
+.card-features { list-style:none; }
+.card-features li { font-size:14px; color:var(--ink-mid); padding:6px 0; display:flex; align-items:center; gap:10px; }
+.card-check {
+  width:18px; height:18px; border-radius:50%;
+  background:var(--amber-lt); border:1.5px solid var(--amber);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.card-check::after {
+  content:''; width:5px; height:4px;
+  border-left:1.5px solid var(--amber-drk); border-bottom:1.5px solid var(--amber-drk);
+  transform:rotate(-45deg) translateY(-1px);
+}
+
+/* ══ WHY ══ */
+.why-section { background:var(--navy); padding:72px 52px; }
+.why-section .section-title { color:white; }
+.why-section .section-eyebrow { color:var(--amber); }
+.why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:960px; margin:0 auto; }
+.why-card {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--r-lg); padding:30px 26px; position:relative; overflow:hidden;
+  transition:background 0.2s;
+}
+.why-card:hover { background:rgba(255,255,255,0.08); }
+.why-icon-wrap {
+  width:52px; height:52px; border-radius:14px;
+  background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; margin-bottom:16px;
+}
+.why-name { font-size:16px; font-weight:700; color:white; margin-bottom:8px; }
+.why-desc { font-size:14px; color:rgba(255,255,255,0.55); line-height:1.65; }
+
+/* ══ REVIEWS ══ */
+.reviews-section { background:var(--off-white); padding:72px 52px; }
+.reviews-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:960px; margin:0 auto; }
+.review-card {
+  background:white; border-radius:var(--r-lg);
+  padding:26px; border:1px solid var(--border);
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+.stars { color:var(--amber); font-size:15px; margin-bottom:12px; letter-spacing:2px; }
+.review-text { font-size:14px; color:var(--ink-mid); line-height:1.7; margin-bottom:14px; }
+.reviewer { font-size:13px; font-weight:700; color:var(--navy); }
+
+/* ══ FAQ ══ */
+.faq-section { background:white; padding:72px 52px; }
+.faq-inner { max-width:680px; margin:0 auto; }
+.faq-item { border:1px solid var(--border); border-radius:var(--r-md); margin-bottom:8px; overflow:hidden; }
+.faq-q {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 22px; font-size:15px; font-weight:600; color:var(--navy);
+  cursor:pointer; user-select:none; gap:16px;
+}
+.faq-icon {
+  width:24px; height:24px; border-radius:50%;
+  background:var(--off-white); border:1.5px solid var(--border);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:all 0.2s;
+}
+.faq-icon svg { transition:transform 0.2s; }
+.faq-item.open .faq-icon { background:var(--amber-lt); border-color:var(--amber); }
+.faq-item.open .faq-icon svg { transform:rotate(180deg); }
+.faq-item.open .faq-icon svg path { stroke:var(--amber-drk); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height 0.28s ease,padding 0.2s; font-size:14px; color:var(--ink-mid); line-height:1.7; padding:0 22px; }
+.faq-item.open .faq-a { max-height:200px; padding:0 22px 20px; }
+
+/* ══ FOOTER CTA ══ */
+.footer-cta {
+  background:var(--navy);
+  padding:80px 52px; text-align:center; position:relative; overflow:hidden;
+}
+.footer-glow {
+  position:absolute; width:500px; height:250px; border-radius:50%;
+  background:radial-gradient(ellipse, rgba(245,158,11,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.fg1 { top:-80px; left:50%; transform:translateX(-50%); }
+.fg2 { bottom:-80px; right:-100px; }
+.footer-cta h2 {
+  font-family:'Inter', sans-serif;
+  font-size:40px; font-weight:900; color:white;
+  margin-bottom:14px; letter-spacing:-1.5px; line-height:1.1;
+  position:relative;
+}
+.footer-cta p { font-size:16px; color:rgba(255,255,255,0.55); margin-bottom:32px; position:relative; }
+.footer-cta-btn {
+  font-family:'Inter',sans-serif;
+  background:var(--amber); color:var(--navy);
+  border:none; border-radius:var(--r-md);
+  padding:20px 52px; font-size:17px; font-weight:800;
+  cursor:pointer; transition:all 0.15s; position:relative;
+  box-shadow:0 8px 32px rgba(245,158,11,0.35);
+}
+.footer-cta-btn:hover { background:var(--amber-drk); transform:translateY(-2px); box-shadow:0 12px 40px rgba(245,158,11,0.45); }
+.footer-sub { margin-top:14px; font-size:13px; color:rgba(255,255,255,0.35); position:relative; }
+
+/* ══ MOBILE ≤768px ══ */
+@media (max-width:768px) {
+  .nav-wrap        { display:none; }
+  .hero-desktop    { display:none; }
+  .hero-mobile     { display:block; }
+
+  .stats-bar       { grid-template-columns:1fr 1fr; padding:24px 20px; gap:18px; }
+  .stat-value      { font-size:24px; }
+
+  .coverage-section{ padding:40px 16px; }
+  .section-title   { font-size:26px; margin-bottom:24px; }
+  .coverage-grid   { grid-template-columns:1fr; gap:16px; }
+  .card-price      { font-size:38px; }
+
+  .why-section     { padding:40px 16px; }
+  .why-grid        { grid-template-columns:1fr; gap:12px; }
+
+  .reviews-section { padding:40px 16px; }
+  .reviews-grid    { grid-template-columns:1fr; gap:12px; }
+
+  .faq-section     { padding:40px 16px; }
+
+  .footer-cta      { padding:52px 20px; }
+  .footer-cta h2   { font-size:28px; }
+  .footer-cta p    { font-size:14px; }
+  .footer-cta-btn  { padding:18px 36px; font-size:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-wrap" id="desktop-nav" style="display:none">
+  <div class="nav-logo">Clear<span>road</span></div>
+  <div class="nav-links">
+    <a href="#">Coverage</a>
+    <a href="#">How it works</a>
+    <a href="#">FAQ</a>
+    <button class="nav-btn">Get a quote</button>
+  </div>
+</nav>
+
+<!-- DESKTOP HERO -->
+<section class="hero-desktop">
+  <div class="hero-shape hs1" aria-hidden="true"></div>
+  <div class="hero-shape hs2" aria-hidden="true"></div>
+  <div class="hero-shape hs3" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-ground" aria-hidden="true"></div>
+  <div class="hero-road" aria-hidden="true"></div>
+  <div class="hero-road-line" aria-hidden="true"></div>
+
+  <div class="hero-content-desktop">
+    <div class="hero-left">
+      <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Easy payment car insurance</div>
+      <h1 class="hero-h1">Stop overpaying<br>for your <span class="accent">coverage.</span></h1>
+      <p class="hero-sub">Real prices upfront. No surprises at checkout. Switch in under 5 minutes and see exactly how much you save.</p>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-dot"></span>No credit card required</div>
+        <div class="trust-item"><span class="trust-dot"></span>Cancel anytime</div>
+        <div class="trust-item"><span class="trust-dot"></span>500K+ customers</div>
+      </div>
+    </div>
+
+    <div class="quote-card">
+      <p class="qc-label">Select your age for a personalised quote</p>
+      <div class="age-grid">
+        <button class="age-btn" onclick="selectAge(this)">20's</button>
+        <button class="age-btn" onclick="selectAge(this)">30's</button>
+        <button class="age-btn" onclick="selectAge(this)">40's</button>
+        <button class="age-btn" onclick="selectAge(this)">50's</button>
+        <button class="age-btn" onclick="selectAge(this)">60's</button>
+        <button class="age-btn" onclick="selectAge(this)">70's</button>
+      </div>
+      <button class="cta-btn">See my quote <span class="cta-arrow"></span></button>
+      <div class="cta-trust">No credit card · Cancel anytime</div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE HERO -->
+<div class="hero-mobile">
+  <div class="mh-sky">
+    <div class="mh-bg-clip">
+      <div class="mh-cloud mc1" aria-hidden="true"></div>
+      <div class="mh-cloud mc2" aria-hidden="true"></div>
+      <div class="mh-cloud mc3" aria-hidden="true"></div>
+      <div class="mh-cloud mc4" aria-hidden="true"></div>
+      <div class="mh-ground" aria-hidden="true"></div>
+      <div class="mh-road"   aria-hidden="true"></div>
+      <div class="mh-road-stripe" aria-hidden="true"></div>
+    </div>
+
+    <div class="mh-brand">Clear<span>road</span></div>
+
+    <div class="mh-text">
+      <div class="mh-eyebrow">Easy payment car insurance</div>
+      <h1 class="mh-h1">Stop overpaying<br>for <span class="accent">coverage.</span></h1>
+      <p class="mh-sub">Switch today and start saving.</p>
+    </div>
+
+    <div class="mh-bubble">
+      <div class="mh-bubble-label">from</div>
+      <div class="mh-bubble-price" id="mh-price">$30</div>
+      <div class="mh-bubble-per">/mo</div>
+    </div>
+
+    <div class="mh-plans">
+      <div class="mh-plan" data-price="$30" onclick="selectMobilePlan(this)">
+        <div class="mh-pname">Liability Only</div>
+        <div class="mh-pfrom">from</div>
+        <div class="mh-pprice">$30.00</div>
+        <div class="mh-pmo">/mo</div>
+      </div>
+      <div class="mh-plan active" data-price="$39.99" onclick="selectMobilePlan(this)">
+        <div class="mh-popular">Most Popular</div>
+        <div class="mh-pname">Liability + Collision</div>
+        <div class="mh-pfrom">from</div>
+        <div class="mh-pprice">$39.99</div>
+        <div class="mh-pmo">/mo</div>
+      </div>
+      <div class="mh-plan" data-price="$45.89" onclick="selectMobilePlan(this)">
+        <div class="mh-pname">Full Coverage</div>
+        <div class="mh-pfrom">from</div>
+        <div class="mh-pprice">$45.89</div>
+        <div class="mh-pmo">/mo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mh-lower">
+    <p class="mh-age-label">Select your age group for a personalised quote</p>
+    <div class="mh-age-grid">
+      <button class="mh-age-btn" onclick="selectMobileAge(this)">20's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this)">30's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this)">40's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this)">50's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this)">60's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this)">70's</button>
+    </div>
+    <button class="cta-btn">See my quote <span class="cta-arrow"></span></button>
+    <div class="cta-trust" style="margin-top:10px;">No credit card · Cancel anytime</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value">500K+</div><div class="stat-label">Happy customers</div></div>
+  <div class="stat"><div class="stat-value">4.9 <span class="stat-star">★</span></div><div class="stat-label">Customer rating</div></div>
+  <div class="stat"><div class="stat-value">60 sec</div><div class="stat-label">To get covered</div></div>
+  <div class="stat"><div class="stat-sub">avg. savings</div><div class="stat-value">$710</div><div class="stat-label">per year</div></div>
+</div>
+
+<!-- COVERAGE -->
+<section class="coverage-section">
+  <div class="section-eyebrow">Plans</div>
+  <h2 class="section-title">Choose your coverage</h2>
+  <div class="coverage-grid">
+    <div class="coverage-card" onclick="selectPlan(this)">
+      <div class="card-name">Liability Only</div>
+      <div class="card-from">from</div>
+      <div class="card-price">$30</div>
+      <div class="card-per">/month</div>
+      <div class="card-divider"></div>
+      <ul class="card-features">
+        <li><span class="card-check"></span>State minimum coverage</li>
+        <li><span class="card-check"></span>Bodily injury liability</li>
+        <li><span class="card-check"></span>Property damage</li>
+      </ul>
+    </div>
+    <div class="coverage-card active" onclick="selectPlan(this)">
+      <div class="pop-badge">Most popular</div>
+      <div class="card-name">Liability + Collision</div>
+      <div class="card-from">from</div>
+      <div class="card-price">$39.99</div>
+      <div class="card-per">/month</div>
+      <div class="card-divider"></div>
+      <ul class="card-features">
+        <li><span class="card-check"></span>Everything in Basic</li>
+        <li><span class="card-check"></span>Collision coverage</li>
+        <li><span class="card-check"></span>Rental reimbursement</li>
+      </ul>
+    </div>
+    <div class="coverage-card" onclick="selectPlan(this)">
+      <div class="card-name">Full Coverage</div>
+      <div class="card-from">from</div>
+      <div class="card-price">$45.89</div>
+      <div class="card-per">/month</div>
+      <div class="card-divider"></div>
+      <ul class="card-features">
+        <li><span class="card-check"></span>Everything in Enhanced</li>
+        <li><span class="card-check"></span>Comprehensive coverage</li>
+        <li><span class="card-check"></span>Roadside assistance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why-section">
+  <div class="section-eyebrow">Why Clearroad</div>
+  <h2 class="section-title">Insurance that respects your time</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon-wrap">⚡</div>
+      <div class="why-name">Covered in 60 seconds</div>
+      <div class="why-desc">Fill in your details, pick a plan, and drive away covered. No paperwork, no phone calls, no waiting.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon-wrap">🔍</div>
+      <div class="why-name">40+ carriers compared</div>
+      <div class="why-desc">We scan the whole market and surface the lowest rate for your exact profile — guaranteed best price.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon-wrap">🛡️</div>
+      <div class="why-name">No surprises, ever</div>
+      <div class="why-desc">The price you see is the price you pay. No bait-and-switch, no hidden fees at checkout.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-eyebrow">Customer stories</div>
+  <h2 class="section-title">Trusted by thousands</h2>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="stars">★★★★★</div><div class="review-text">"I was skeptical at first, but the whole process took 5 minutes. Real quote, real savings. Switched same day."</div><div class="reviewer">Michael C.</div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><div class="review-text">"Finally an insurance site that gives you a price upfront. No hidden fees, no surprises. Highly recommend."</div><div class="reviewer">Jennifer L.</div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><div class="review-text">"Was paying $280/month with my old provider. Clearroad got me better coverage for $165. The savings are real."</div><div class="reviewer">David R.</div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><div class="review-text">"The quote online was the exact price I paid. No bait and switch like other companies."</div><div class="reviewer">Lisa P.</div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-eyebrow">FAQ</div>
+  <h2 class="section-title">Good questions</h2>
+  <div class="faq-inner">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What does 'easy payment' mean?<div class="faq-icon"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="#8a9aaa" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div><div class="faq-a">Easy payment means you pay monthly with no large upfront cost. Your annual premium is split into simple monthly instalments — no hidden fees or interest.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How fast can I get covered?<div class="faq-icon"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="#8a9aaa" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div><div class="faq-a">Coverage starts the moment you pay. Most customers are fully insured in under 60 seconds from first clicking "Get a quote."</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What's included in full coverage?<div class="faq-icon"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="#8a9aaa" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div><div class="faq-a">Full coverage includes liability, collision, comprehensive, uninsured motorist protection, and roadside assistance.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I cancel anytime?<div class="faq-icon"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="#8a9aaa" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div><div class="faq-a">Yes — cancel any time, no fees. You'll receive a pro-rated refund for unused coverage days, automatically back to your payment method.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do rates increase over time?<div class="faq-icon"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="#8a9aaa" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div></div><div class="faq-a">Your rate is locked for the first term. At renewal we automatically re-shop 40+ carriers to make sure you're still on the best deal available.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="footer-glow fg1" aria-hidden="true"></div>
+  <div class="footer-glow fg2" aria-hidden="true"></div>
+  <h2>Ready to stop overpaying?</h2>
+  <p>Join 500,000+ drivers who switched to Clearroad and never looked back.</p>
+  <button class="footer-cta-btn">Get your free quote</button>
+  <div class="footer-sub">No credit card required · Cancel anytime · Instant coverage</div>
+</section>
+
+<script>
+  if (window.innerWidth > 768) document.getElementById('desktop-nav').style.display = 'flex';
+  function selectAge(btn) { document.querySelectorAll('.age-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  function selectMobileAge(btn) { document.querySelectorAll('.mh-age-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  function selectMobilePlan(el) { document.querySelectorAll('.mh-plan').forEach(c=>c.classList.remove('active')); el.classList.add('active'); document.getElementById('mh-price').textContent=el.dataset.price; }
+  function selectPlan(el) { document.querySelectorAll('.coverage-card').forEach(c=>c.classList.remove('active')); el.classList.add('active'); }
+  function toggleFaq(el) { const item=el.closest('.faq-item'); const isOpen=item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open')); if(!isOpen)item.classList.add('open'); }
+</script>
+</body>
+</html>
