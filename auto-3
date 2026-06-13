@@ -313,7 +313,7 @@ footer {
 
   <!-- HEADER -->
   <header>
-    <div class="logo">Clear<span>road</span></div>
+    <div class="logo">GoAuto<span>Saver</span></div>
     <div class="trust-pill"><span class="trust-dot"></span>500K+ drivers already saving</div>
   </header>
 
@@ -366,13 +366,13 @@ footer {
       <li><span class="feat-check"></span>We shop 40+ carriers so you don't have to</li>
     </ul>
 
-    <button class="cta-btn" onclick="firePixel('https://path.goautosaver.com/click/1'); window.open('https://path.goautosaver.com/click/1','_blank')">See my full quote →</button>
+    <button class="cta-btn" onclick="window.open(noPixel ? 'https://path.goautosaver.com/click/2' : 'https://path.goautosaver.com/click/1','_blank')">See my full quote →</button>
     <div class="cta-sub">No credit card · Cancel anytime</div>
   </div>
 
   <footer>
     Rates shown are based on similar driver profiles. Your exact rate is confirmed in seconds at checkout.<br>
-    Clearroad Insurance · All rights reserved.
+    GoAutoSaver · All rights reserved.
   </footer>
 
 </div>
@@ -564,9 +564,6 @@ footer {
   function showResult(rate) {
     const quiz   = document.getElementById('quiz-card');
     const result = document.getElementById('result-card');
-
-    // Fire pixel if not already disqualified
-    if (!noPixel) firePixel('https://path.goautosaver.com/click/1');
 
     quiz.classList.add('slide-out');
     setTimeout(() => {
