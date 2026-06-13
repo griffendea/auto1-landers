@@ -356,7 +356,7 @@ footer {
       <div class="rq-label">Your monthly rate</div>
       <div class="rq-price" id="result-price">$39.99</div>
       <div class="rq-per">/month · no commitment</div>
-      <div class="rq-saving" id="result-saving">Saving $47/mo switching to Clearroad</div>
+      <div class="rq-saving" id="result-saving">Saving $47/mo vs. the national average</div>
     </div>
 
     <ul class="result-features">
@@ -478,7 +478,7 @@ footer {
     // Show savings badge once rate > 0
     if (targetRate > 0) {
       const saving = Math.round(AVG_MONTHLY - targetRate);
-      document.getElementById('savings-text').textContent = `Most drivers save ~$${saving}/mo switching to Clearroad`;
+      document.getElementById('savings-text').textContent = `Most drivers save ~$${saving}/mo vs. the national average`;
       document.getElementById('rate-savings').classList.add('show');
     }
   }
@@ -587,7 +587,7 @@ footer {
       document.getElementById('result-price').textContent = `$${whole}.${frac}`;
 
       const saving = Math.round(AVG_MONTHLY - rate);
-      document.getElementById('result-saving').textContent = `Most drivers save ~$${saving}/mo switching to Clearroad`;
+      document.getElementById('result-saving').textContent = `Most drivers save ~$${saving}/mo vs. the national average`;
 
       document.getElementById('progress-fill').style.width = '100%';
       document.getElementById('progress-text').textContent = 'Complete!';
