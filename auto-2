@@ -42,6 +42,10 @@ body {
   padding: 22px 52px;
   display: flex; align-items: center; justify-content: space-between;
 }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: 1100px; margin: 0 auto;
+}
 .nav-logo {
   font-family: 'Syne', sans-serif;
   font-size: 22px; font-weight: 800;
@@ -332,9 +336,13 @@ body {
 /* ══ STATS BAR ══ */
 .stats-bar {
   background: var(--navy-mid);
-  padding:28px 52px;
-  display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+  padding: 28px 52px;
+  display: flex; justify-content: center;
   border-top: 1px solid rgba(255,255,255,0.06);
+}
+.stats-inner {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 12px; width: 100%; max-width: 1100px;
 }
 .stat { text-align:center; }
 .stat-sub   { font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:2px; letter-spacing:0.05em; text-transform:uppercase; }
@@ -481,7 +489,7 @@ body {
   .hero-desktop    { display:none; }
   .hero-mobile     { display:block; }
 
-  .stats-bar       { grid-template-columns:1fr 1fr; padding:24px 20px; gap:18px; }
+  .stats-inner     { grid-template-columns:1fr 1fr; gap:18px; }
   .stat-value      { font-size:24px; }
 
   .coverage-section{ padding:40px 16px; }
@@ -508,12 +516,14 @@ body {
 
 <!-- NAV -->
 <nav class="nav-wrap" id="desktop-nav" style="display:none">
-  <div class="nav-logo">Clear<span>road</span></div>
-  <div class="nav-links">
-    <a href="#">Coverage</a>
-    <a href="#">How it works</a>
-    <a href="#">FAQ</a>
-    <button class="nav-btn">Get a quote</button>
+  <div class="nav-inner">
+    <div class="nav-logo">Clear<span>road</span></div>
+    <div class="nav-links">
+      <a href="#">Coverage</a>
+      <a href="#">How it works</a>
+      <a href="#">FAQ</a>
+      <button class="nav-btn">Get a quote</button>
+    </div>
   </div>
 </nav>
 
@@ -622,10 +632,12 @@ body {
 
 <!-- STATS -->
 <div class="stats-bar">
-  <div class="stat"><div class="stat-value">500K+</div><div class="stat-label">Happy customers</div></div>
-  <div class="stat"><div class="stat-value">4.9 <span class="stat-star">★</span></div><div class="stat-label">Customer rating</div></div>
-  <div class="stat"><div class="stat-value">60 sec</div><div class="stat-label">To get covered</div></div>
-  <div class="stat"><div class="stat-sub">avg. savings</div><div class="stat-value">$710</div><div class="stat-label">per year</div></div>
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-value">500K+</div><div class="stat-label">Happy customers</div></div>
+    <div class="stat"><div class="stat-value">4.9 <span class="stat-star">★</span></div><div class="stat-label">Customer rating</div></div>
+    <div class="stat"><div class="stat-value">60 sec</div><div class="stat-label">To get covered</div></div>
+    <div class="stat"><div class="stat-sub">avg. savings</div><div class="stat-value">$710</div><div class="stat-label">per year</div></div>
+  </div>
 </div>
 
 <!-- COVERAGE -->
