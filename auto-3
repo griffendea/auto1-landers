@@ -366,7 +366,7 @@ footer {
       <li><span class="feat-check"></span>We shop 40+ carriers so you don't have to</li>
     </ul>
 
-    <button class="cta-btn">See my full quote →</button>
+    <button class="cta-btn" onclick="firePixel('https://path.goautosaver.com/click/1'); window.open('https://path.goautosaver.com/click/1','_blank')">See my full quote →</button>
     <div class="cta-sub">No credit card · Cancel anytime</div>
   </div>
 
@@ -548,12 +548,31 @@ footer {
     animateRate(29.99);
   }
 
+  // ── PIXEL FIRE ──
+  // No pixel: 65+ age, or not currently insured
+  // Pixel fires on the disqualifying answer itself; all other paths fire /click/1 at result
+  let noPixel = false;
+
+  function firePixel(url) {
+    const img = new Image();
+    img.src = url;
+  }
+
   function handleAnswer(idx, opt) {
     answers[idx] = opt.value;
 
+    // 65+ selected → no pixel
     if (opt.filter) {
+      noPixel = true;
+      firePixel('https://path.goautosaver.com/click/2');
       showFilteredOut();
       return;
+    }
+
+    // Q1 = "Are you currently insured?" (idx 1), "no" = no pixel
+    if (idx === 1 && opt.value === 'no') {
+      noPixel = true;
+      firePixel('https://path.goautosaver.com/click/2');
     }
 
     const nextQ = idx + 1;
@@ -575,6 +594,9 @@ footer {
   function showResult(rate) {
     const quiz   = document.getElementById('quiz-card');
     const result = document.getElementById('result-card');
+
+    // Fire pixel if not already disqualified
+    if (!noPixel) firePixel('https://path.goautosaver.com/click/1');
 
     quiz.classList.add('slide-out');
     setTimeout(() => {
