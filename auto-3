@@ -389,7 +389,7 @@ footer {
         { label: "35–44", value: "35-44" },
         { label: "45–54", value: "45-54" },
         { label: "55–64", value: "55-64" },
-        { label: "65+",   value: "65+", filter: true },
+        { label: "65+",   value: "65+" },
       ]
     },
     {
@@ -527,46 +527,18 @@ footer {
     updateProgress(idx);
   }
 
-  function showFilteredOut() {
-    const card = document.getElementById('quiz-card');
-    card.classList.remove('slide-in');
-    void card.offsetWidth;
-    card.classList.add('slide-in');
-    document.getElementById('question-text').textContent = 'Finding your options…';
-    document.getElementById('options-container').innerHTML = `
-      <div style="text-align:center;padding:16px 0">
-        <div style="font-size:32px;margin-bottom:12px">📞</div>
-        <div style="font-size:15px;font-weight:600;color:#0b1f3a;margin-bottom:8px">Speak with an agent</div>
-        <div style="font-size:13px;color:#6b7a8d;line-height:1.6;margin-bottom:18px">
-          Drivers 65+ may qualify for specialist plans.<br>Let us connect you with the right advisor.
-        </div>
-        <a href="tel:+18005550123" style="display:block;background:#f59e0b;color:#0b1f3a;border-radius:12px;padding:15px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;">
-          Call 1-800-555-0123
-        </a>
-      </div>`;
-    updateProgress(questions.length);
-    animateRate(29.99);
-  }
 
   // ── PIXEL FIRE ──
-  // No pixel: 65+ age, or not currently insured
-  // Pixel fires on the disqualifying answer itself; all other paths fire /click/1 at result
   let noPixel = false;
-
-  function firePixel(url) {
-    const img = new Image();
-    img.src = url;
-  }
+  function firePixel(url) { const img = new Image(); img.src = url; }
 
   function handleAnswer(idx, opt) {
     answers[idx] = opt.value;
 
     // 65+ selected → no pixel
-    if (opt.filter) {
+    if (idx === 0 && opt.value === '65+') {
       noPixel = true;
       firePixel('https://path.goautosaver.com/click/2');
-      showFilteredOut();
-      return;
     }
 
     // Q1 = "Are you currently insured?" (idx 1), "no" = no pixel
@@ -581,10 +553,8 @@ footer {
     if (nextQ < questions.length) {
       animateRate(rate);
       currentQ = nextQ;
-      // brief delay so the animation reads before next question
       setTimeout(() => renderQuestion(nextQ), 180);
     } else {
-      // Done — compute final rate and show result
       const finalRate = computeRate(4);
       animateRate(finalRate);
       setTimeout(() => showResult(finalRate), 400);
