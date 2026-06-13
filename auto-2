@@ -517,7 +517,7 @@ body {
 <!-- NAV -->
 <nav class="nav-wrap" id="desktop-nav" style="display:none">
   <div class="nav-inner">
-    <div class="nav-logo">Clear<span>road</span></div>
+    <div class="nav-logo">GoAuto<span>Saver</span></div>
     <div class="nav-links">
       <a href="#">Coverage</a>
       <a href="#">How it works</a>
