@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clearroad — Get Your Rate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:     #0b1f3a;
+  --navy-mid: #1a3557;
+  --amber:    #f59e0b;
+  --amber-dk: #d97706;
+  --amber-lt: #fffbeb;
+  --white:    #ffffff;
+  --off:      #f7f6f3;
+  --muted:    #6b7a8d;
+  --border:   #e2e8f0;
+  --green:    #16a34a;
+  --red:      #dc2626;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── BACKGROUND ── */
+.bg {
+  position: fixed; inset: 0; z-index: 0;
+  background: linear-gradient(145deg, #0b1f3a 0%, #0f2a48 40%, #122d3a 70%, #0d2a20 100%);
+  overflow: hidden;
+}
+.bg-circle {
+  position: absolute; border-radius: 50%;
+  background: rgba(245,158,11,0.06);
+}
+.bc1 { width: 600px; height: 600px; top: -200px; right: -150px; }
+.bc2 { width: 350px; height: 350px; bottom: -100px; left: -80px; }
+.bc3 { width: 150px; height: 150px; top: 40%; left: 35%; background: rgba(255,255,255,0.03); }
+
+/* Road horizon at bottom */
+.bg-ground {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 30%;
+  background: linear-gradient(180deg, #1a5030 0%, #0d3520 100%);
+  clip-path: ellipse(140% 90% at 50% 100%);
+}
+.bg-road {
+  position: absolute; bottom: 0; left: 38%; right: 38%; height: 24%;
+  background: linear-gradient(180deg, #1e2e40 0%, #111e2e 100%);
+  clip-path: polygon(24% 0%, 76% 0%, 100% 100%, 0% 100%);
+}
+.bg-road-line {
+  position: absolute; bottom: 0; left: 49.2%; right: 49.2%; height: 16%;
+  background: repeating-linear-gradient(180deg,
+    rgba(245,158,11,0.4) 0px, rgba(245,158,11,0.4) 10px,
+    transparent 10px, transparent 22px);
+}
+
+/* ── LAYOUT ── */
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 0 16px 60px;
+}
+
+/* ── HEADER ── */
+header {
+  width: 100%; max-width: 560px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 0 0;
+}
+.logo {
+  font-size: 20px; font-weight: 800; color: white; letter-spacing: -0.5px;
+}
+.logo span { color: var(--amber); }
+.trust-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500;
+}
+.trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* ── RATE DISPLAY ── */
+.rate-wrap {
+  margin-top: 36px;
+  text-align: center;
+}
+.rate-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
+.rate-number {
+  font-size: 80px; font-weight: 900; line-height: 1;
+  letter-spacing: -4px; color: var(--amber);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; align-items: flex-start; justify-content: center; gap: 0;
+}
+.rate-dollar { font-size: 36px; margin-top: 12px; font-weight: 800; }
+.rate-cents  { font-size: 36px; margin-top: 12px; font-weight: 800; }
+.rate-per {
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.4);
+  margin-top: 4px; letter-spacing: 0.04em;
+}
+.rate-savings {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px;
+  background: rgba(22,163,74,0.15); border: 1px solid rgba(22,163,74,0.3);
+  border-radius: 99px; padding: 4px 12px;
+  font-size: 12px; font-weight: 600; color: #4ade80;
+  opacity: 0; transition: opacity 0.4s; height: 26px;
+}
+.rate-savings.show { opacity: 1; }
+.savings-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; }
+
+/* ── PROGRESS ── */
+.progress-wrap {
+  width: 100%; max-width: 480px;
+  margin-top: 28px;
+}
+.progress-track {
+  height: 3px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--amber);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.progress-text {
+  font-size: 11px; color: rgba(255,255,255,0.35); font-weight: 500;
+  margin-top: 7px; text-align: right;
+}
+
+/* ── QUIZ CARD ── */
+.quiz-card {
+  width: 100%; max-width: 480px;
+  background: white; border-radius: 24px;
+  padding: 32px 28px;
+  margin-top: 20px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.question-text {
+  font-size: 20px; font-weight: 800; color: var(--navy);
+  line-height: 1.2; letter-spacing: -0.5px;
+  margin-bottom: 22px;
+}
+
+/* Option buttons */
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.opt-btn {
+  font-family: 'Inter', sans-serif;
+  width: 100%; background: var(--off); border: 2px solid var(--border);
+  border-radius: 14px; padding: 16px 20px;
+  font-size: 16px; font-weight: 600; color: var(--navy);
+  cursor: pointer; text-align: left;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.15s;
+  position: relative; overflow: hidden;
+}
+.opt-btn:hover { border-color: var(--amber); background: var(--amber-lt); color: var(--navy); }
+.opt-btn .opt-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; font-size: 13px;
+}
+.opt-btn:hover .opt-icon { border-color: var(--amber); background: var(--amber-lt); }
+
+/* 2-col grid for yes/no */
+.options.two-col { flex-direction: row; gap: 10px; }
+.options.two-col .opt-btn { flex: 1; justify-content: center; flex-direction: column; gap: 8px; text-align: center; padding: 22px 16px; }
+.options.two-col .opt-btn .opt-icon { margin: 0 auto; }
+
+/* ── RESULT CARD ── */
+.result-card {
+  width: 100%; max-width: 480px;
+  background: white; border-radius: 24px;
+  padding: 32px 28px;
+  margin-top: 20px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
+  display: none;
+}
+
+.result-header {
+  text-align: center; margin-bottom: 24px;
+}
+.result-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(22,163,74,0.1); border: 1px solid rgba(22,163,74,0.25);
+  border-radius: 99px; padding: 5px 14px;
+  font-size: 12px; font-weight: 700; color: var(--green);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.result-title {
+  font-size: 22px; font-weight: 900; color: var(--navy);
+  letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 6px;
+}
+.result-sub { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+.result-quote-box {
+  background: var(--navy); border-radius: 16px;
+  padding: 20px; margin-bottom: 20px; text-align: center;
+}
+.rq-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 4px; }
+.rq-price {
+  font-size: 56px; font-weight: 900; color: var(--amber);
+  letter-spacing: -3px; line-height: 1;
+}
+.rq-per { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 600; margin-top: 4px; }
+.rq-saving {
+  display: inline-block; margin-top: 10px;
+  background: rgba(22,163,74,0.2); border-radius: 99px;
+  padding: 4px 14px; font-size: 12px; font-weight: 700; color: #4ade80;
+}
+
+.result-features { list-style: none; margin-bottom: 22px; }
+.result-features li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--navy); padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.result-features li:last-child { border-bottom: none; }
+.feat-check {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(245,158,11,0.12); border: 1.5px solid var(--amber);
+  display: flex; align-items: center; justify-content: center;
+}
+.feat-check::after {
+  content: ''; width: 6px; height: 4px;
+  border-left: 1.5px solid var(--amber-dk); border-bottom: 1.5px solid var(--amber-dk);
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+.cta-btn {
+  font-family: 'Inter', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; background: var(--amber); color: var(--navy);
+  border: none; border-radius: 14px; padding: 18px;
+  font-size: 16px; font-weight: 800; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(245,158,11,0.35);
+  transition: all 0.15s; letter-spacing: -0.2px;
+}
+.cta-btn:hover { background: var(--amber-dk); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(245,158,11,0.45); }
+.cta-sub {
+  text-align: center; margin-top: 10px;
+  font-size: 12px; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.cta-sub::before { content: '🔒'; font-size: 11px; }
+
+/* ── SLIDE ANIMATIONS ── */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideOut {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-24px); }
+}
+.slide-in  { animation: slideIn 0.28s ease forwards; }
+.slide-out { animation: slideOut 0.2s ease forwards; }
+
+/* Rate number bounce */
+@keyframes rateBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.rate-bounce { animation: rateBounce 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* ── FOOTER ── */
+footer {
+  margin-top: 32px; text-align: center;
+  font-size: 11px; color: rgba(255,255,255,0.2);
+  max-width: 480px; line-height: 1.6;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 480px) {
+  .rate-number { font-size: 64px; letter-spacing: -3px; }
+  .rate-dollar, .rate-cents { font-size: 28px; margin-top: 9px; }
+  .quiz-card, .result-card { padding: 24px 20px; }
+  .question-text { font-size: 18px; }
+  .rq-price { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="bg-circle bc1"></div>
+  <div class="bg-circle bc2"></div>
+  <div class="bg-circle bc3"></div>
+  <div class="bg-ground"></div>
+  <div class="bg-road"></div>
+  <div class="bg-road-line"></div>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">Clear<span>road</span></div>
+    <div class="trust-pill"><span class="trust-dot"></span>500K+ drivers already saving</div>
+  </header>
+
+  <!-- RATE DISPLAY -->
+  <div class="rate-wrap">
+    <div class="rate-label">Drivers like you pay as low as</div>
+    <div class="rate-number" id="rate-display">
+      <span class="rate-dollar">$</span>
+      <span id="rate-whole">0</span>
+      <span class="rate-cents" id="rate-frac">.00</span>
+    </div>
+    <div class="rate-per">/month</div>
+    <div class="rate-savings" id="rate-savings">
+      <span class="savings-dot"></span>
+      <span id="savings-text">You're saving $0/mo vs. avg.</span>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-text" id="progress-text">Question 1 of 4</div>
+  </div>
+
+  <!-- QUIZ CARD -->
+  <div class="quiz-card" id="quiz-card">
+    <div class="question-text" id="question-text">How old are you?</div>
+    <div class="options" id="options-container"></div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="result-card">
+    <div class="result-header">
+      <div class="result-badge"><span>✓</span> Rate found</div>
+      <div class="result-title">Good news — we can beat your current rate.</div>
+      <div class="result-sub">Based on your profile, here's what drivers like you typically pay.</div>
+    </div>
+
+    <div class="result-quote-box">
+      <div class="rq-label">Your monthly rate</div>
+      <div class="rq-price" id="result-price">$39.99</div>
+      <div class="rq-per">/month · no commitment</div>
+      <div class="rq-saving" id="result-saving">Saving $47/mo switching to Clearroad</div>
+    </div>
+
+    <ul class="result-features">
+      <li><span class="feat-check"></span>Liability + Collision coverage included</li>
+      <li><span class="feat-check"></span>Get covered in under 60 seconds</li>
+      <li><span class="feat-check"></span>No hidden fees or upfront costs</li>
+      <li><span class="feat-check"></span>We shop 40+ carriers so you don't have to</li>
+    </ul>
+
+    <button class="cta-btn">See my full quote →</button>
+    <div class="cta-sub">No credit card · Cancel anytime</div>
+  </div>
+
+  <footer>
+    Rates shown are based on similar driver profiles. Your exact rate is confirmed in seconds at checkout.<br>
+    Clearroad Insurance · All rights reserved.
+  </footer>
+
+</div>
+
+<script>
+  // ── QUIZ DATA ──
+  const questions = [
+    {
+      text: "How old are you?",
+      type: "single",
+      options: [
+        { label: "18–24", value: "18-24" },
+        { label: "25–34", value: "25-34" },
+        { label: "35–44", value: "35-44" },
+        { label: "45–54", value: "45-54" },
+        { label: "55–64", value: "55-64" },
+        { label: "65+",   value: "65+", filter: true },
+      ]
+    },
+    {
+      text: "Are you currently insured?",
+      type: "yesno",
+      options: [
+        { label: "Yes", value: "yes", icon: "✓" },
+        { label: "No",  value: "no",  icon: "✗" },
+      ]
+    },
+    {
+      text: "Have you had a DUI in the last 3 years?",
+      type: "yesno",
+      options: [
+        { label: "Yes", value: "yes", icon: "✓" },
+        { label: "No",  value: "no",  icon: "✗" },
+      ]
+    },
+    {
+      text: "Do you live in California or New York?",
+      type: "yesno",
+      options: [
+        { label: "Yes", value: "yes", icon: "✓" },
+        { label: "No",  value: "no",  icon: "✗" },
+      ]
+    },
+  ];
+
+  // ── RATE LOGIC ──
+  // Starts at 0, drops step by step to final quote (never above $50)
+  // Answers affect final rate; shown rate animates down as user progresses
+
+  const baseRate = 49.99;
+  const AVG_MONTHLY = 87;
+
+  let currentQ   = 0;
+  let answers    = {};
+  let displayedRate = 0;
+
+  function computeRate(step) {
+    // Progressive reveal: after each question show a lower teaser rate
+    // Final rate computed from all answers
+    const stepRates = [0, 44.99, 39.99, 34.99, null]; // null = use final calc
+    if (step < 4) return stepRates[step];
+
+    let rate = 39.99;
+    if (answers[1] === 'yes') rate -= 4; // already insured = lower risk
+    if (answers[2] === 'no')  rate -= 3; // no DUI
+    if (answers[3] === 'no')  rate -= 2; // not CA/NY
+
+    // Age factor
+    const age = answers[0];
+    if (age === '25-34' || age === '35-44') rate -= 3;
+    else if (age === '45-54' || age === '55-64') rate -= 2;
+    else if (age === '18-24') rate += 2;
+
+    return Math.max(29.99, Math.min(49.99, rate));
+  }
+
+  function animateRate(targetRate) {
+    const el      = document.getElementById('rate-whole');
+    const fracEl  = document.getElementById('rate-frac');
+    const rateEl  = document.getElementById('rate-display');
+    const start   = displayedRate;
+    const end     = targetRate;
+    const dur     = 600;
+    const startTs = performance.now();
+
+    rateEl.classList.remove('rate-bounce');
+    void rateEl.offsetWidth;
+    rateEl.classList.add('rate-bounce');
+
+    function step(ts) {
+      const p = Math.min((ts - startTs) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const val = start + (end - start) * ease;
+      const whole = Math.floor(val);
+      const frac  = Math.round((val - whole) * 100).toString().padStart(2, '0');
+      el.textContent    = whole;
+      fracEl.textContent = '.' + frac;
+      if (p < 1) requestAnimationFrame(step);
+      else displayedRate = end;
+    }
+    requestAnimationFrame(step);
+
+    // Show savings badge once rate > 0
+    if (targetRate > 0) {
+      const saving = Math.round(AVG_MONTHLY - targetRate);
+      document.getElementById('savings-text').textContent = `Most drivers save ~$${saving}/mo switching to Clearroad`;
+      document.getElementById('rate-savings').classList.add('show');
+    }
+  }
+
+  function updateProgress(q) {
+    const pct = (q / questions.length) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent =
+      q < questions.length
+        ? `Question ${q + 1} of ${questions.length}`
+        : 'Complete!';
+  }
+
+  function renderQuestion(idx) {
+    const q   = questions[idx];
+    const qEl = document.getElementById('question-text');
+    const oEl = document.getElementById('options-container');
+    const card = document.getElementById('quiz-card');
+
+    card.classList.remove('slide-in');
+    void card.offsetWidth;
+    card.classList.add('slide-in');
+
+    qEl.textContent = q.text;
+    oEl.className   = 'options' + (q.type === 'yesno' ? ' two-col' : '');
+    oEl.innerHTML   = '';
+
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+
+      if (q.type === 'yesno') {
+        btn.innerHTML = `
+          <div class="opt-icon">${opt.icon}</div>
+          <span>${opt.label}</span>`;
+      } else {
+        btn.innerHTML = `
+          <span>${opt.label}</span>
+          <div class="opt-icon">→</div>`;
+      }
+
+      btn.addEventListener('click', () => handleAnswer(idx, opt));
+      oEl.appendChild(btn);
+    });
+
+    updateProgress(idx);
+  }
+
+  function showFilteredOut() {
+    const card = document.getElementById('quiz-card');
+    card.classList.remove('slide-in');
+    void card.offsetWidth;
+    card.classList.add('slide-in');
+    document.getElementById('question-text').textContent = 'Finding your options…';
+    document.getElementById('options-container').innerHTML = `
+      <div style="text-align:center;padding:16px 0">
+        <div style="font-size:32px;margin-bottom:12px">📞</div>
+        <div style="font-size:15px;font-weight:600;color:#0b1f3a;margin-bottom:8px">Speak with an agent</div>
+        <div style="font-size:13px;color:#6b7a8d;line-height:1.6;margin-bottom:18px">
+          Drivers 65+ may qualify for specialist plans.<br>Let us connect you with the right advisor.
+        </div>
+        <a href="tel:+18005550123" style="display:block;background:#f59e0b;color:#0b1f3a;border-radius:12px;padding:15px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;">
+          Call 1-800-555-0123
+        </a>
+      </div>`;
+    updateProgress(questions.length);
+    animateRate(29.99);
+  }
+
+  function handleAnswer(idx, opt) {
+    answers[idx] = opt.value;
+
+    if (opt.filter) {
+      showFilteredOut();
+      return;
+    }
+
+    const nextQ = idx + 1;
+    const rate  = computeRate(nextQ);
+
+    if (nextQ < questions.length) {
+      animateRate(rate);
+      currentQ = nextQ;
+      // brief delay so the animation reads before next question
+      setTimeout(() => renderQuestion(nextQ), 180);
+    } else {
+      // Done — compute final rate and show result
+      const finalRate = computeRate(4);
+      animateRate(finalRate);
+      setTimeout(() => showResult(finalRate), 400);
+    }
+  }
+
+  function showResult(rate) {
+    const quiz   = document.getElementById('quiz-card');
+    const result = document.getElementById('result-card');
+
+    quiz.classList.add('slide-out');
+    setTimeout(() => {
+      quiz.style.display = 'none';
+      result.style.display = 'block';
+      result.classList.add('slide-in');
+
+      const whole = Math.floor(rate);
+      const frac  = Math.round((rate - whole) * 100).toString().padStart(2, '0');
+      document.getElementById('result-price').textContent = `$${whole}.${frac}`;
+
+      const saving = Math.round(AVG_MONTHLY - rate);
+      document.getElementById('result-saving').textContent = `Most drivers save ~$${saving}/mo switching to Clearroad`;
+
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('progress-text').textContent = 'Complete!';
+    }, 220);
+  }
+
+  // ── INIT ──
+  renderQuestion(0);
+</script>
+</body>
+</html>
