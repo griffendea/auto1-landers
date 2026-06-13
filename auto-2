@@ -522,7 +522,7 @@ body {
       <a href="#">Coverage</a>
       <a href="#">How it works</a>
       <a href="#">FAQ</a>
-      <button class="nav-btn">Get a quote</button>
+      <button class="nav-btn" onclick="window.open('https://path.goautosaver.com/click/1','_blank')">Get a quote</button>
     </div>
   </div>
 </nav>
@@ -552,14 +552,14 @@ body {
     <div class="quote-card">
       <p class="qc-label">Select your age for a personalised quote</p>
       <div class="age-grid">
-        <button class="age-btn" onclick="selectAge(this)">20's</button>
-        <button class="age-btn" onclick="selectAge(this)">30's</button>
-        <button class="age-btn" onclick="selectAge(this)">40's</button>
-        <button class="age-btn" onclick="selectAge(this)">50's</button>
-        <button class="age-btn" onclick="selectAge(this)">60's</button>
-        <button class="age-btn" onclick="selectAge(this)">70's</button>
+        <button class="age-btn" onclick="selectAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">20's</button>
+        <button class="age-btn" onclick="selectAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">30's</button>
+        <button class="age-btn" onclick="selectAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">40's</button>
+        <button class="age-btn" onclick="selectAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">50's</button>
+        <button class="age-btn" onclick="selectAge(this); window.open('https://path.goautosaver.com/click/2','_blank')">60's</button>
+        <button class="age-btn" onclick="selectAge(this); window.open('https://path.goautosaver.com/click/2','_blank')">70's</button>
       </div>
-      <button class="cta-btn">See my quote <span class="cta-arrow"></span></button>
+      <button class="cta-btn" onclick="window.open('https://path.goautosaver.com/click/1','_blank')">See my quote <span class="cta-arrow"></span></button>
       <div class="cta-trust">No credit card · Cancel anytime</div>
     </div>
   </div>
@@ -618,14 +618,14 @@ body {
   <div class="mh-lower">
     <p class="mh-age-label">Select your age group for a personalised quote</p>
     <div class="mh-age-grid">
-      <button class="mh-age-btn" onclick="selectMobileAge(this)">20's</button>
-      <button class="mh-age-btn" onclick="selectMobileAge(this)">30's</button>
-      <button class="mh-age-btn" onclick="selectMobileAge(this)">40's</button>
-      <button class="mh-age-btn" onclick="selectMobileAge(this)">50's</button>
-      <button class="mh-age-btn" onclick="selectMobileAge(this)">60's</button>
-      <button class="mh-age-btn" onclick="selectMobileAge(this)">70's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">20's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">30's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">40's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this); window.open('https://path.goautosaver.com/click/1','_blank')">50's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this); window.open('https://path.goautosaver.com/click/2','_blank')">60's</button>
+      <button class="mh-age-btn" onclick="selectMobileAge(this); window.open('https://path.goautosaver.com/click/2','_blank')">70's</button>
     </div>
-    <button class="cta-btn">See my quote <span class="cta-arrow"></span></button>
+    <button class="cta-btn" onclick="window.open('https://path.goautosaver.com/click/1','_blank')">See my quote <span class="cta-arrow"></span></button>
     <div class="cta-trust" style="margin-top:10px;">No credit card · Cancel anytime</div>
   </div>
 </div>
@@ -739,7 +739,7 @@ body {
   <div class="footer-glow fg2" aria-hidden="true"></div>
   <h2>Ready to stop overpaying?</h2>
   <p>Join 500,000+ drivers who switched to Clearroad and never looked back.</p>
-  <button class="footer-cta-btn">Get your free quote</button>
+  <button class="footer-cta-btn" onclick="window.open('https://path.goautosaver.com/click/1','_blank')">Get your free quote</button>
   <div class="footer-sub">No credit card required · Cancel anytime · Instant coverage</div>
 </section>
 
