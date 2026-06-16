@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script type="text/javascript" src="https://cecbw.ttrk.io/track.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Clearroad Insurance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script type="text/javascript" src="https://cecbw.ttrk.io/track.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -579,7 +579,7 @@ body {
       <div class="mh-road-stripe" aria-hidden="true"></div>
     </div>
 
-    <div class="mh-brand">Clear<span>road</span></div>
+    <div class="mh-brand">GoAuto<span>Saver</span></div>
 
     <div class="mh-text">
       <div class="mh-eyebrow">Easy payment car insurance</div>
