@@ -367,7 +367,7 @@ footer {
       <li><span class="feat-check"></span>We shop 40+ carriers so you don't have to</li>
     </ul>
 
-    <a href="https://path.goautosaver.com/click" class="cta-btn">See my full quote →</a>
+    <a href="https://path.goautosaver.com/click/2" id="cta-link" class="cta-btn">See my full quote →</a>
     <div class="cta-sub">No credit card · Cancel anytime</div>
   </div>
 
@@ -546,9 +546,42 @@ footer {
     }
   }
 
+  // ── TRACKING PARAM FORWARDING ──
+  // Forward incoming params (clickid, sub1-sub12, utm_*, etc.) from this
+  // page's URL onto the CTA link, so the offer side can attribute the click.
+  function forwardTrackingParams() {
+    const incomingParams = new URLSearchParams(window.location.search);
+    if ([...incomingParams].length === 0) return;
+
+    document.querySelectorAll('a.cta-btn[href]').forEach(link => {
+      try {
+        const url = new URL(link.getAttribute('href'), window.location.href);
+        incomingParams.forEach((value, key) => {
+          url.searchParams.set(key, value);
+        });
+        link.setAttribute('href', url.toString());
+      } catch (e) {
+        // leave the link untouched if it's not a valid absolute URL
+      }
+    });
+  }
+
+  function qualifiesForOffer() {
+    const insured   = answers[1] === 'yes';   // "Are you currently insured?"
+    const under65    = answers[0] !== '65+';   // age bracket
+    const notCaOrNy  = answers[3] === 'no';    // "Do you live in California or New York?"
+    return insured && under65 && notCaOrNy;
+  }
+
   function showResult(rate) {
     const quiz   = document.getElementById('quiz-card');
     const result = document.getElementById('result-card');
+    const cta    = document.getElementById('cta-link');
+
+    cta.setAttribute('href', qualifiesForOffer()
+      ? 'https://path.goautosaver.com/click/1'
+      : 'https://path.goautosaver.com/click/2');
+    forwardTrackingParams();
 
     quiz.classList.add('slide-out');
     setTimeout(() => {
@@ -567,26 +600,6 @@ footer {
       document.getElementById('progress-text').textContent = 'Complete!';
     }, 220);
   }
-
-  // ── TRACKING PARAM FORWARDING ──
-  // Forward incoming params (clickid, sub1-sub12, utm_*, etc.) from this
-  // page's URL onto the CTA link, so the offer side can attribute the click.
-  (function forwardTrackingParams() {
-    const incomingParams = new URLSearchParams(window.location.search);
-    if ([...incomingParams].length === 0) return;
-
-    document.querySelectorAll('a.cta-btn[href]').forEach(link => {
-      try {
-        const url = new URL(link.getAttribute('href'), window.location.href);
-        incomingParams.forEach((value, key) => {
-          url.searchParams.set(key, value);
-        });
-        link.setAttribute('href', url.toString());
-      } catch (e) {
-        // leave the link untouched if it's not a valid absolute URL
-      }
-    });
-  })();
 
   // ── INIT ──
   renderQuestion(0);
