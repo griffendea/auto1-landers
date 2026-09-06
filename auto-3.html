@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript" src="https://cecbw.ttrk.io/track.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Clearroad — Get Your Rate</title>
@@ -253,6 +252,7 @@ header {
   font-size: 16px; font-weight: 800; cursor: pointer;
   box-shadow: 0 4px 20px rgba(245,158,11,0.35);
   transition: all 0.15s; letter-spacing: -0.2px;
+  text-decoration: none;
 }
 .cta-btn:hover { background: var(--amber-dk); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(245,158,11,0.45); }
 .cta-sub {
@@ -367,7 +367,7 @@ footer {
       <li><span class="feat-check"></span>We shop 40+ carriers so you don't have to</li>
     </ul>
 
-    <button class="cta-btn" onclick="window.open(withTrackingParams(noPixel ? 'https://path.goautosaver.com/click/2' : 'https://path.goautosaver.com/click/1'),'_blank')">See my full quote →</button>
+    <a href="https://path.goautosaver.com/click" class="cta-btn">See my full quote →</a>
     <div class="cta-sub">No credit card · Cancel anytime</div>
   </div>
 
@@ -529,42 +529,8 @@ footer {
   }
 
 
-  // ── TRACKING PARAM FORWARDING ──
-  // Carries clickid, sub1-sub12, utm_*, and any other incoming query params
-  // from this page's URL onto every outbound offer/pixel URL, so the
-  // network can attribute the click instead of seeing an empty clickid.
-  const incomingParams = new URLSearchParams(window.location.search);
-  function withTrackingParams(baseUrl) {
-    if ([...incomingParams].length === 0) return baseUrl;
-    try {
-      const url = new URL(baseUrl, window.location.href);
-      incomingParams.forEach((value, key) => {
-        url.searchParams.set(key, value);
-      });
-      return url.toString();
-    } catch (e) {
-      return baseUrl;
-    }
-  }
-
-  // ── PIXEL FIRE ──
-  let noPixel = false;
-  function firePixel(url) { const img = new Image(); img.src = withTrackingParams(url); }
-
   function handleAnswer(idx, opt) {
     answers[idx] = opt.value;
-
-    // 65+ selected → no pixel
-    if (idx === 0 && opt.value === '65+') {
-      noPixel = true;
-      firePixel('https://path.goautosaver.com/click/2');
-    }
-
-    // Q1 = "Are you currently insured?" (idx 1), "no" = no pixel
-    if (idx === 1 && opt.value === 'no') {
-      noPixel = true;
-      firePixel('https://path.goautosaver.com/click/2');
-    }
 
     const nextQ = idx + 1;
     const rate  = computeRate(nextQ);
@@ -601,6 +567,26 @@ footer {
       document.getElementById('progress-text').textContent = 'Complete!';
     }, 220);
   }
+
+  // ── TRACKING PARAM FORWARDING ──
+  // Forward incoming params (clickid, sub1-sub12, utm_*, etc.) from this
+  // page's URL onto the CTA link, so the offer side can attribute the click.
+  (function forwardTrackingParams() {
+    const incomingParams = new URLSearchParams(window.location.search);
+    if ([...incomingParams].length === 0) return;
+
+    document.querySelectorAll('a.cta-btn[href]').forEach(link => {
+      try {
+        const url = new URL(link.getAttribute('href'), window.location.href);
+        incomingParams.forEach((value, key) => {
+          url.searchParams.set(key, value);
+        });
+        link.setAttribute('href', url.toString());
+      } catch (e) {
+        // leave the link untouched if it's not a valid absolute URL
+      }
+    });
+  })();
 
   // ── INIT ──
   renderQuestion(0);
