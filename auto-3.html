@@ -95,18 +95,21 @@ header {
   text-align: center;
 }
 .rate-label {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: rgba(255,255,255,0.4);
-  margin-bottom: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--amber);
+  background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 99px; padding: 6px 16px;
+  margin-bottom: 10px;
 }
 .rate-number {
-  font-size: 80px; font-weight: 900; line-height: 1;
+  font-size: 96px; font-weight: 900; line-height: 1;
   letter-spacing: -4px; color: var(--amber);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex; align-items: flex-start; justify-content: center; gap: 0;
 }
-.rate-dollar { font-size: 36px; margin-top: 12px; font-weight: 800; }
-.rate-cents  { font-size: 36px; margin-top: 12px; font-weight: 800; }
+.rate-dollar { font-size: 42px; margin-top: 14px; font-weight: 800; }
+.rate-cents  { font-size: 42px; margin-top: 14px; font-weight: 800; }
 .rate-per {
   font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.4);
   margin-top: 4px; letter-spacing: 0.04em;
@@ -125,7 +128,7 @@ header {
 /* ── PROGRESS ── */
 .progress-wrap {
   width: 100%; max-width: 480px;
-  margin-top: 28px;
+  margin-top: 16px;
 }
 .progress-track {
   height: 3px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden;
@@ -146,7 +149,7 @@ header {
   width: 100%; max-width: 480px;
   background: white; border-radius: 24px;
   padding: 32px 28px;
-  margin-top: 20px;
+  margin-top: 12px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
 }
 
@@ -291,8 +294,8 @@ footer {
 
 /* ── MOBILE ── */
 @media (max-width: 480px) {
-  .rate-number { font-size: 64px; letter-spacing: -3px; }
-  .rate-dollar, .rate-cents { font-size: 28px; margin-top: 9px; }
+  .rate-number { font-size: 76px; letter-spacing: -3px; }
+  .rate-dollar, .rate-cents { font-size: 32px; margin-top: 11px; }
   .quiz-card, .result-card { padding: 24px 20px; }
   .question-text { font-size: 18px; }
   .rq-price { font-size: 48px; }
@@ -320,10 +323,10 @@ footer {
 
   <!-- RATE DISPLAY -->
   <div class="rate-wrap">
-    <div class="rate-label">Drivers like you pay as low as</div>
+    <div class="rate-label">Estimated Rate:</div>
     <div class="rate-number" id="rate-display">
       <span class="rate-dollar">$</span>
-      <span id="rate-whole">0</span>
+      <span id="rate-whole">60</span>
       <span class="rate-cents" id="rate-frac">.00</span>
     </div>
     <div class="rate-per">/month</div>
@@ -428,17 +431,23 @@ footer {
 
   let currentQ   = 0;
   let answers    = {};
-  let displayedRate = 0;
+  let displayedRate = 60;
 
   function computeRate(step) {
     // Progressive reveal: after each question show a lower teaser rate
     // Final rate computed from all answers
-    const stepRates = [0, 44.99, 39.99, 34.99, null]; // null = use final calc
-    if (step < 4) return stepRates[step];
+    const stepRates = [60, 44.99, 39.99, 34.99, null]; // null = use final calc
+    if (step < 4) {
+      let r = stepRates[step];
+      // If they just answered the DUI question, nudge the teaser rate up
+      if (step === 3 && answers[2] === 'yes') r += 6;
+      return r;
+    }
 
     let rate = 39.99;
     if (answers[1] === 'yes') rate -= 4; // already insured = lower risk
-    if (answers[2] === 'no')  rate -= 3; // no DUI
+    if (answers[2] === 'yes') rate += 6; // DUI = higher risk
+    else                       rate -= 3; // no DUI
     if (answers[3] === 'no')  rate -= 2; // not CA/NY
 
     // Age factor
