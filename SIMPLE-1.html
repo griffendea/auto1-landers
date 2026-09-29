@@ -228,6 +228,21 @@
 </main>
 
 <script>
+  // ---- Tracking param forwarding ----
+  // Copies incoming URL params (clickid, sub1-sub12, utm_*, etc.) onto the
+  // offer links so the offer side can attribute the click.
+  (function forwardTrackingParams() {
+    const incoming = new URLSearchParams(window.location.search);
+    if ([...incoming].length === 0) return;
+    document.querySelectorAll('a.opt[href]').forEach(link => {
+      try {
+        const url = new URL(link.getAttribute('href'), window.location.href);
+        incoming.forEach((value, key) => url.searchParams.set(key, value));
+        link.setAttribute('href', url.toString());
+      } catch (e) { /* leave link untouched */ }
+    });
+  })();
+
   // ---- Settings ----
   // Where to send qualified visitors after the ZIP step. Leave empty to show the thank-you screen.
   // Answers are appended as query params, e.g. https://example.com/quote?age=35-44&insured=yes&zip=33901
